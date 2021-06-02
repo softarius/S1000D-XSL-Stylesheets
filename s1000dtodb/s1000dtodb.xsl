@@ -254,7 +254,7 @@
     <xsl:processing-instruction name="dbfo-need">
       <xsl:text>height="2cm"</xsl:text>
     </xsl:processing-instruction>
-    <bridgehead renderas="centerhead">References</bridgehead>
+    <bridgehead renderas="sect1">References</bridgehead>
     <table pgwide="1" frame="topbot" colsep="0">
       <title>References</title>
       <tgroup cols="2" align="left">
@@ -264,7 +264,7 @@
             <entry>Title</entry>
           </row>
         </thead>
-        <tbody rowsep="0">
+        <tbody>
           <xsl:if test="not(content/refs)">
             <row>
               <entry>None</entry>
@@ -562,7 +562,7 @@
             <entry>Data module/Technical publication</entry>
           </row>
         </thead>
-        <tbody rowsep="0">
+        <tbody>
           <xsl:for-each select="*">
             <row>
               <xsl:choose>
@@ -659,7 +659,7 @@
             <entry>Estimated time</entry>
           </row>
         </thead>
-        <tbody rowsep="0">
+        <tbody>
           <xsl:choose>
             <xsl:when test="person | personnel">
               <xsl:for-each select="person">
@@ -759,7 +759,7 @@
             <entry>Remark</entry>
           </row>
         </thead>
-        <tbody rowsep="0">
+        <tbody>
           <xsl:choose>
             <xsl:when test="noSupportEquips or not(supportEquipDescrGroup/supportEquipDescr)">
               <row>
@@ -819,7 +819,7 @@
             <entry>Remark</entry>
           </row>
         </thead>
-        <tbody rowsep="0">
+        <tbody >
           <xsl:choose>
             <xsl:when test="noSupplies or not(supplyDescrGroup/supplyDescr)">
               <row>
@@ -879,7 +879,7 @@
             <entry>Remark</entry>
           </row>
         </thead>
-        <tbody rowsep="0">
+        <tbody >
           <xsl:choose>
             <xsl:when test="noSpares or not(spareDescrGroup/spareDescr)">
               <row>
@@ -1150,7 +1150,7 @@
 
   <xsl:template match="tbody">
     <xsl:element name="tbody">
-      <xsl:attribute name="rowsep">0</xsl:attribute>
+     
       <xsl:for-each select="@*">
         <xsl:copy/>
       </xsl:for-each>
@@ -1273,12 +1273,12 @@
       publication. </para>
     <para>C = Changed data module</para>
     <para>N = New data module</para>
-    <informaltable pgwide="1" frame="topbot" colsep="0" rowsep="0">
+    <informaltable pgwide="1" frame="topbot" colsep="0" >
       <tgroup cols="6" align="left">
         <colspec colnum="3" colwidth="1.5em" align="center"/>
         <colspec colnum="4" colwidth="6em"/>
         <colspec colnum="5" colwidth="4em"/>
-        <thead rowsep="1">
+        <thead>
           <row>
             <entry>Document title</entry>
             <entry>Data module code</entry>
