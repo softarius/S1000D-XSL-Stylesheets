@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_4-0-1/xml_schema_flat/descript.xsd"
+  xsi:noNamespaceSchemaLocation="http://www.s1000d.org/S1000D_5-0/xml_schema_flat/descript.xsd"
   xmlns:xlink="http://www.w3.org/1999/xlink">
   <identAndStatusSection>
     <dmAddress>
@@ -50,6 +50,7 @@
     </dmStatus>
   </identAndStatusSection>
   <content>
+ 
     <description>
       <levelledPara>
         <title>Introduction</title>

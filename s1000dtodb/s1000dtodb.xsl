@@ -11,21 +11,19 @@
      ******************************************************************** -->
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns="http://docbook.org/ns/docbook"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:fo="http://www.w3.org/1999/XSL/Format"
-  version="1.0">
-  
+  xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:fo="http://www.w3.org/1999/XSL/Format" version="1.0">
+
   <xsl:param name="date.time"/>
-  
+
   <xsl:param name="want.producedby.blurb">yes</xsl:param>
-  
+
   <xsl:param name="want.inwork.blurb">yes</xsl:param>
-  
+
   <xsl:param name="publication.code">UNKNOWN PUBLICATION</xsl:param>
 
   <xsl:param name="body.start.indent">20mm</xsl:param>
-  
+
   <xsl:param name="show.unimplemented.markup">1</xsl:param>
 
   <xsl:output indent="no" method="xml"/>
@@ -38,10 +36,10 @@
   <xsl:variable name="all.dmodules" select="/publication/dmodule"/>
 
   <xsl:template match="/publication">
-    <book>
+    <book version='5.0'>
       <xsl:choose>
         <xsl:when test="pm">
-	  <xsl:apply-templates select="pm"/>
+          <xsl:apply-templates select="pm"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:apply-templates select="dmodule"/>
@@ -49,7 +47,7 @@
       </xsl:choose>
     </book>
   </xsl:template>
-  
+
   <xsl:template match="*">
     <xsl:message>Unhandled: <xsl:call-template name="element.name"/></xsl:message>
     <xsl:if test="$show.unimplemented.markup != 0 and ancestor-or-self::dmodule">
@@ -75,7 +73,7 @@
     <xsl:value-of select="name()"/>
     <xsl:text>&gt;</xsl:text>
   </xsl:template>
-  
+
   <xsl:template name="element.name">
     <xsl:for-each select="parent::*">
       <xsl:call-template name="element.name"/>
@@ -94,22 +92,22 @@
   <xsl:template match="pm">
     <xsl:for-each select="content/pmEntry//dmRef">
       <xsl:variable name="dm.ref.dm.code">
-	<xsl:apply-templates select="dmRefIdent/dmCode"/>
+        <xsl:apply-templates select="dmRefIdent/dmCode"/>
       </xsl:variable>
       <xsl:variable name="module.content">
         <xsl:for-each select="$all.dmodules">
-	  <xsl:variable name="dm.code">
-	    <xsl:call-template name="get.dmcode"/>
-	  </xsl:variable>
-	  <xsl:if test="$dm.ref.dm.code = $dm.code">
-	    <!--
+          <xsl:variable name="dm.code">
+            <xsl:call-template name="get.dmcode"/>
+          </xsl:variable>
+          <xsl:if test="$dm.ref.dm.code = $dm.code">
+            <!--
 	    <xsl:message>
 	      <xsl:text>Data module: </xsl:text>
 	      <xsl:value-of select="$dm.code"/>
 	    </xsl:message>
 	    -->
-	    <xsl:apply-templates select="."/>
-	  </xsl:if>
+            <xsl:apply-templates select="."/>
+          </xsl:if>
         </xsl:for-each>
       </xsl:variable>
       <xsl:choose>
@@ -118,8 +116,8 @@
           <xsl:copy-of select="$module.content"/>
         </xsl:when>
         <xsl:otherwise>
-	  <xsl:message>PM references unknown DM: <xsl:value-of select="$dm.ref.dm.code"/>
-	  </xsl:message>
+          <xsl:message>PM references unknown DM: <xsl:value-of select="$dm.ref.dm.code"/>
+          </xsl:message>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:for-each>
@@ -143,7 +141,7 @@
       <xsl:attribute name="xml:id">
         <xsl:call-template name="get.dmcode"/>
         <xsl:text>-</xsl:text>
-	<xsl:value-of select="$id"/>
+        <xsl:value-of select="$id"/>
       </xsl:attribute>
     </xsl:if>
   </xsl:template>
@@ -152,7 +150,8 @@
     <chapter>
       <xsl:choose>
         <xsl:when test="@xsi:noNamespaceSchemaLocation">
-          <title>Unimplemented dmodule: <xsl:value-of select="@xsi:noNamespaceSchemaLocation"/></title>
+          <title>Unimplemented dmodule: <xsl:value-of select="@xsi:noNamespaceSchemaLocation"
+            /></title>
         </xsl:when>
         <xsl:otherwise>
           <title>Unknown dmodule type</title>
@@ -161,7 +160,7 @@
     </chapter>
   </xsl:template>
 
-  <xsl:template match="techName|infoName">
+  <xsl:template match="techName | infoName">
     <xsl:apply-templates/>
   </xsl:template>
 
@@ -191,26 +190,29 @@
         <xsl:apply-templates select=".//issueDate"/>
       </date>
       <bibliomisc role="publication.title">
-        <xsl:apply-templates select="/publication/pm/identAndStatusSection/pmAddress/pmAddressItems/pmTitle/text()"/>
+        <xsl:apply-templates
+          select="/publication/pm/identAndStatusSection/pmAddress/pmAddressItems/pmTitle/text()"/>
       </bibliomisc>
       <bibliomisc role="publication.author">
-        <xsl:apply-templates select="/publication/pm/identAndStatusSection/pmStatus/responsiblePartnerCompany/enterpriseName/text()"/>
+        <xsl:apply-templates
+          select="/publication/pm/identAndStatusSection/pmStatus/responsiblePartnerCompany/enterpriseName/text()"
+        />
       </bibliomisc>
       <bibliomisc role="page.header.logo">
-        <xsl:apply-templates select="(dmStatus/logo|/publication/pm/identAndStatusSection/pmStatus/logo)[1]"/>
+        <xsl:apply-templates
+          select="(dmStatus/logo | /publication/pm/identAndStatusSection/pmStatus/logo)[1]"/>
       </bibliomisc>
       <xsl:if test="number(dmAddress/dmIdent/issueInfo/@inWork) != 0 and $want.inwork.blurb = 'yes'">
-        <bibliomisc role="inwork.blurb">
-          This is a draft copy of issue <xsl:value-of select="dmAddress/dmIdent/issueInfo/@issueNumber"/>-<xsl:value-of
-          select="dmAddress/dmIdent/issueInfo/@inWork"/>.
-          <xsl:if test="$date.time != ''">
-            Printed <xsl:value-of select="$date.time"/>.
-          </xsl:if>
+        <bibliomisc role="inwork.blurb"> This is a draft copy of issue <xsl:value-of
+            select="dmAddress/dmIdent/issueInfo/@issueNumber"/>-<xsl:value-of
+            select="dmAddress/dmIdent/issueInfo/@inWork"/>. <xsl:if test="$date.time != ''"> Printed
+              <xsl:value-of select="$date.time"/>. </xsl:if>
         </bibliomisc>
       </xsl:if>
-      <xsl:if test="dmStatus/responsiblePartnerCompany/enterpriseName and $want.producedby.blurb = 'yes'">
-        <bibliomisc role="producedby.blurb">
-          Produced by: <xsl:value-of select="dmStatus/responsiblePartnerCompany/enterpriseName"/>
+      <xsl:if
+        test="dmStatus/responsiblePartnerCompany/enterpriseName and $want.producedby.blurb = 'yes'">
+        <bibliomisc role="producedby.blurb"> Produced by: <xsl:value-of
+            select="dmStatus/responsiblePartnerCompany/enterpriseName"/>
         </bibliomisc>
       </xsl:if>
       <xsl:if test="$info.code = '001'">
@@ -223,7 +225,8 @@
       <bibliomisc role="publication.code">
         <xsl:choose>
           <xsl:when test="/publication/pm">
-            <xsl:apply-templates select="/publication/pm/identAndStatusSection/pmAddress/pmIdent/pmCode"/>
+            <xsl:apply-templates
+              select="/publication/pm/identAndStatusSection/pmAddress/pmIdent/pmCode"/>
           </xsl:when>
           <xsl:otherwise>
             <xsl:value-of select="$publication.code"/>
@@ -262,47 +265,49 @@
           </row>
         </thead>
         <tbody rowsep="0">
-	  <xsl:if test="not(content/refs)">
-	    <row>
-	      <entry>None</entry>
-	      <entry></entry>
-	    </row>
-	  </xsl:if>
-	  <xsl:for-each select="content/refs/dmRef">
-	    <row>
-	      <entry><xsl:apply-templates select="."/></entry>
-	      <entry>
-	        <xsl:if test="dmRefAddressItems/dmTitle">
-		  <xsl:apply-templates select="dmRefAddressItems/dmTitle/techName"/>
-		  <xsl:if test="dmRefAddressItems/dmTitle/infoName">
-		    <xsl:text> - </xsl:text>
-		    <xsl:apply-templates select="dmRefAddressItems/dmTitle/infoName"/>
-		  </xsl:if>
-	        </xsl:if>
-	      </entry>
-	    </row>
-	  </xsl:for-each>
-	  <xsl:for-each select="content/refs/externalPubRef">
-	    <row>
-	      <entry>
-	        <xsl:if test="externalPubRefIdent/externalPubCode">
-		  <xsl:if test="externalPubRefIdent/externalPubCode/@pubCodingScheme">
-		    <xsl:value-of select="externalPubRefIdent/externalPubCode/@pubCodingScheme"/>
-		    <xsl:text> </xsl:text>
-	          </xsl:if>
-		  <xsl:value-of select="externalPubRefIdent/externalPubCode"/>
-	        </xsl:if>
-	      </entry>
-	      <entry>
-	        <xsl:if test="externalPubRefIdent/externalPubTitle">
-		  <xsl:value-of select="externalPubRefIdent/externalPubTitle"/>
-	        </xsl:if>
-	      </entry>
-	    </row>
-	  </xsl:for-each>
+          <xsl:if test="not(content/refs)">
+            <row>
+              <entry>None</entry>
+              <entry/>
+            </row>
+          </xsl:if>
+          <xsl:for-each select="content/refs/dmRef">
+            <row>
+              <entry>
+                <xsl:apply-templates select="."/>
+              </entry>
+              <entry>
+                <xsl:if test="dmRefAddressItems/dmTitle">
+                  <xsl:apply-templates select="dmRefAddressItems/dmTitle/techName"/>
+                  <xsl:if test="dmRefAddressItems/dmTitle/infoName">
+                    <xsl:text> - </xsl:text>
+                    <xsl:apply-templates select="dmRefAddressItems/dmTitle/infoName"/>
+                  </xsl:if>
+                </xsl:if>
+              </entry>
+            </row>
+          </xsl:for-each>
+          <xsl:for-each select="content/refs/externalPubRef">
+            <row>
+              <entry>
+                <xsl:if test="externalPubRefIdent/externalPubCode">
+                  <xsl:if test="externalPubRefIdent/externalPubCode/@pubCodingScheme">
+                    <xsl:value-of select="externalPubRefIdent/externalPubCode/@pubCodingScheme"/>
+                    <xsl:text> </xsl:text>
+                  </xsl:if>
+                  <xsl:value-of select="externalPubRefIdent/externalPubCode"/>
+                </xsl:if>
+              </entry>
+              <entry>
+                <xsl:if test="externalPubRefIdent/externalPubTitle">
+                  <xsl:value-of select="externalPubRefIdent/externalPubTitle"/>
+                </xsl:if>
+              </entry>
+            </row>
+          </xsl:for-each>
         </tbody>
       </tgroup>
-    </table>      
+    </table>
   </xsl:template>
 
   <xsl:template match="*" mode="number">
@@ -317,21 +322,21 @@
       <xsl:call-template name="revisionflag"/>
       <fo:list-block start-indent="0mm" provisional-distance-between-starts="{$body.start.indent}">
         <fo:list-item>
-	  <fo:list-item-label start-indent="0mm" end-indent="label-end()" text-align="start">
-	    <fo:block>
-	      <xsl:copy-of select="$label"/>
-	    </fo:block>
-	  </fo:list-item-label>
-	  <fo:list-item-body start-indent="body-start()">
-	    <fo:block>
-	      <xsl:copy-of select="$content"/>
-	    </fo:block>
-	  </fo:list-item-body>
+          <fo:list-item-label start-indent="0mm" end-indent="label-end()" text-align="start">
+            <fo:block>
+              <xsl:copy-of select="$label"/>
+            </fo:block>
+          </fo:list-item-label>
+          <fo:list-item-body start-indent="body-start()">
+            <fo:block>
+              <xsl:copy-of select="$content"/>
+            </fo:block>
+          </fo:list-item-body>
         </fo:list-item>
       </fo:list-block>
     </xsl:element>
   </xsl:template>
-  
+
   <xsl:template match="levelledPara" mode="number">
     <xsl:if test="parent::levelledPara">
       <xsl:apply-templates select="parent::levelledPara" mode="number"/>
@@ -339,7 +344,7 @@
     </xsl:if>
     <xsl:number level="single"/>
   </xsl:template>
-  
+
   <xsl:template match="proceduralStep" mode="number">
     <xsl:if test="parent::proceduralStep">
       <xsl:apply-templates select="parent::proceduralStep" mode="number"/>
@@ -347,7 +352,7 @@
     </xsl:if>
     <xsl:number level="single"/>
   </xsl:template>
-  
+
   <xsl:template match="internalRef">
     <xsl:variable name="id" select="@internalRefId"/>
     <xsl:variable name="target" select="ancestor-or-self::dmodule//*[@id = $id]"/>
@@ -364,57 +369,58 @@
       -->
       <xsl:when test="name($target[1]) = 'table'">
         <xsl:element name="xref">
-	  <xsl:attribute name="linkend">
-	    <xsl:value-of select="$linkend"/>
-	  </xsl:attribute>
+          <xsl:attribute name="linkend">
+            <xsl:value-of select="$linkend"/>
+          </xsl:attribute>
         </xsl:element>
       </xsl:when>
       <xsl:otherwise>
         <xsl:element name="link">
-	  <xsl:attribute name="linkend">
-	    <xsl:value-of select="$linkend"/>
-	  </xsl:attribute>
-	  <xsl:choose>
-	    <xsl:when test="name($target[1]) = 'levelledPara'">
-	      <xsl:for-each select="$target">
-	        <xsl:text>Para&#160;</xsl:text>
-	        <xsl:apply-templates select="." mode="number"/>
-	      </xsl:for-each>
-	    </xsl:when>
-	    <xsl:when test="name($target[1]) = 'figure'">
-	      <xsl:for-each select="$target">
-	        <xsl:text>Fig&#160;</xsl:text>
-	        <xsl:apply-templates select="." mode="number"/>
-	      </xsl:for-each>
-	    </xsl:when>
-	    <xsl:when test="name($target[1]) = 'proceduralStep'">
-	      <xsl:attribute name="xrefstyle">select:nopage</xsl:attribute>
-	      <xsl:for-each select="$target">
-	        <xsl:text>Step&#160;</xsl:text>
-	        <xsl:apply-templates select="." mode="number"/>
-	      </xsl:for-each>
-	    </xsl:when>
-	    <xsl:when test="name($target[1]) = 'hotspot'">
-	      <xsl:for-each select="$target">
-	        <xsl:text>Fig&#160;</xsl:text>
-	        <xsl:for-each select="parent::*">
-		  <xsl:apply-templates select="." mode="number"/>
-	        </xsl:for-each>
-	        <xsl:if test="@applicationStructureName">
-		  <xsl:text>&#160;[</xsl:text>
-		  <xsl:value-of select="@applicationStructureName"/>
-		  <xsl:text>]</xsl:text>
-	        </xsl:if>
-	      </xsl:for-each>
-	    </xsl:when>
-	    <xsl:when test="$target/name">
-	      <xsl:apply-templates select="$target/name/text()"/>
-	    </xsl:when>
-	    <xsl:otherwise>
-	      <xsl:message>Can't generate link target type for: <xsl:value-of select="name($target[1])"/>(<xsl:value-of select="$id"/>)</xsl:message>
-	      <xsl:value-of select="$id"/>
-	    </xsl:otherwise>
-	  </xsl:choose>
+          <xsl:attribute name="linkend">
+            <xsl:value-of select="$linkend"/>
+          </xsl:attribute>
+          <xsl:choose>
+            <xsl:when test="name($target[1]) = 'levelledPara'">
+              <xsl:for-each select="$target">
+                <xsl:text>Para&#160;</xsl:text>
+                <xsl:apply-templates select="." mode="number"/>
+              </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="name($target[1]) = 'figure'">
+              <xsl:for-each select="$target">
+                <xsl:text>Fig&#160;</xsl:text>
+                <xsl:apply-templates select="." mode="number"/>
+              </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="name($target[1]) = 'proceduralStep'">
+              <xsl:attribute name="xrefstyle">select:nopage</xsl:attribute>
+              <xsl:for-each select="$target">
+                <xsl:text>Step&#160;</xsl:text>
+                <xsl:apply-templates select="." mode="number"/>
+              </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="name($target[1]) = 'hotspot'">
+              <xsl:for-each select="$target">
+                <xsl:text>Fig&#160;</xsl:text>
+                <xsl:for-each select="parent::*">
+                  <xsl:apply-templates select="." mode="number"/>
+                </xsl:for-each>
+                <xsl:if test="@applicationStructureName">
+                  <xsl:text>&#160;[</xsl:text>
+                  <xsl:value-of select="@applicationStructureName"/>
+                  <xsl:text>]</xsl:text>
+                </xsl:if>
+              </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="$target/name">
+              <xsl:apply-templates select="$target/name/text()"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:message>Can't generate link target type for: <xsl:value-of
+                  select="name($target[1])"/>(<xsl:value-of select="$id"/>)</xsl:message>
+              <xsl:value-of select="$id"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:element>
       </xsl:otherwise>
     </xsl:choose>
@@ -479,15 +485,15 @@
     <xsl:text>-</xsl:text>
     <xsl:value-of select="./@pmVolume"/>
   </xsl:template>
-  
+
   <xsl:template name="tech.name">
     <xsl:apply-templates select="dmAddress/dmAddressItems/dmTitle/techName"/>
   </xsl:template>
-  
+
   <xsl:template name="info.name">
     <xsl:apply-templates select="dmAddress/dmAddressItems/dmTitle/infoName"/>
   </xsl:template>
-  
+
   <xsl:template match="issueDate">
     <xsl:value-of select="@year"/>
     <xsl:text>-</xsl:text>
@@ -510,15 +516,17 @@
     </xsl:processing-instruction>
     <xsl:choose>
       <xsl:when test="title">
-        <bridgehead renderas="centerhead"><xsl:value-of select="title"/></bridgehead>
+        <bridgehead renderas="centerhead">
+          <xsl:value-of select="title"/>
+        </bridgehead>
       </xsl:when>
       <xsl:otherwise>
         <bridgehead renderas="centerhead">Common Information</bridgehead>
       </xsl:otherwise>
     </xsl:choose>
-    <xsl:apply-templates select="figure|note|para|commonInfoDescrPara"/>
+    <xsl:apply-templates select="figure | note | para | commonInfoDescrPara"/>
   </xsl:template>
-  
+
   <xsl:template match="preliminaryRqmts">
     <xsl:processing-instruction name="dbfo-need">
       <xsl:text>height="2cm"</xsl:text>
@@ -560,7 +568,7 @@
               <xsl:choose>
                 <xsl:when test="name() = 'noConds'">
                   <entry>None</entry>
-                  <entry></entry>
+                  <entry/>
                 </xsl:when>
                 <xsl:otherwise>
                   <xsl:apply-templates select="."/>
@@ -570,7 +578,7 @@
           </xsl:for-each>
         </tbody>
       </tgroup>
-    </table>      
+    </table>
   </xsl:template>
 
   <xsl:template match="preliminaryRqmts/reqCondGroup">
@@ -578,32 +586,42 @@
   </xsl:template>
 
   <xsl:template match="reqCondNoRef">
-    <entry><xsl:apply-templates/></entry>
-    <entry></entry>
+    <entry>
+      <xsl:apply-templates/>
+    </entry>
+    <entry/>
   </xsl:template>
-  
+
   <xsl:template match="reqCondExternalPub">
-    <entry><xsl:apply-templates select="reqCond"/></entry>
-    <entry><xsl:apply-templates select="externalPubRef"/></entry>
+    <entry>
+      <xsl:apply-templates select="reqCond"/>
+    </entry>
+    <entry>
+      <xsl:apply-templates select="externalPubRef"/>
+    </entry>
   </xsl:template>
 
   <xsl:template match="reqCondDm">
-    <entry><xsl:apply-templates select="reqCond"/></entry>
-    <entry><xsl:apply-templates select="dmRef"/></entry>
+    <entry>
+      <xsl:apply-templates select="reqCond"/>
+    </entry>
+    <entry>
+      <xsl:apply-templates select="dmRef"/>
+    </entry>
   </xsl:template>
 
   <xsl:template match="reqCond">
     <xsl:apply-templates/>
   </xsl:template>
-  
+
   <xsl:template match="externalPubRef">
     <xsl:choose>
       <xsl:when test="@xlink:href" xmlns:xlink="http://www.w3.org/1999/xlink">
         <xsl:element name="link">
-	  <xsl:attribute name="xlink:href">
-	    <xsl:value-of select="@xlink:href"/>
-	  </xsl:attribute>
-	  <xsl:apply-templates/>
+          <xsl:attribute name="xlink:href">
+            <xsl:value-of select="@xlink:href"/>
+          </xsl:attribute>
+          <xsl:apply-templates/>
         </xsl:element>
       </xsl:when>
       <xsl:otherwise>
@@ -611,11 +629,11 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
-  <xsl:template match="externalPubRefIdent|externalPubTitle">
+
+  <xsl:template match="externalPubRefIdent | externalPubTitle">
     <xsl:apply-templates/>
   </xsl:template>
-  
+
   <xsl:template match="estimatedTime">
     <xsl:apply-templates/>
     <xsl:if test="@unitOfMeasure">
@@ -642,52 +660,69 @@
           </row>
         </thead>
         <tbody rowsep="0">
-	  <xsl:choose>
-	    <xsl:when test="person|personnel">
-	      <xsl:for-each select="person">
-	        <row>
-		  <entry><xsl:text>Man </xsl:text><xsl:value-of select="@man"/></entry>
-		  <entry><xsl:value-of select="personCategory/@personCategoryCode"/></entry>
-		  <entry><xsl:apply-templates select="personSkill/@skillLevelCode"/></entry>
-		  <entry><xsl:value-of select="trade"/></entry>
-		  <entry><xsl:apply-templates select="estimatedTime"/></entry>
-	        </row>
-	      </xsl:for-each>
-	      <xsl:for-each select="personnel">
-	        <xsl:choose>
-		  <xsl:when test="*">
-		    <row>
-		      <entry>As required</entry>
-		      <entry><xsl:value-of select="personCategory/@personCategoryCode"/></entry>
-		      <entry>
-		        <xsl:apply-templates select="personSkill/@skillLevelCode"/>
-		        <xsl:if test="@numRequired">
-			  <xsl:text> (</xsl:text>
-			    <xsl:value-of select="@numRequired"/>
-			  <xsl:text>)</xsl:text>
-		        </xsl:if>
-		      </entry>
-		      <entry><xsl:value-of select="trade"/></entry>
-		      <entry><xsl:apply-templates select="estimatedTime"/></entry>
-		    </row>
-		  </xsl:when>
-		  <xsl:otherwise>
-		    <row>
-		      <entry>As required</entry>
-		    </row>
-		  </xsl:otherwise>
-	        </xsl:choose>
-	      </xsl:for-each>
-	    </xsl:when>
-	    <xsl:otherwise>
-	      <row>
-	        <entry>As required</entry>
-	      </row>
-	    </xsl:otherwise>
-	  </xsl:choose>
+          <xsl:choose>
+            <xsl:when test="person | personnel">
+              <xsl:for-each select="person">
+                <row>
+                  <entry>
+                    <xsl:text>Man </xsl:text>
+                    <xsl:value-of select="@man"/>
+                  </entry>
+                  <entry>
+                    <xsl:value-of select="personCategory/@personCategoryCode"/>
+                  </entry>
+                  <entry>
+                    <xsl:apply-templates select="personSkill/@skillLevelCode"/>
+                  </entry>
+                  <entry>
+                    <xsl:value-of select="trade"/>
+                  </entry>
+                  <entry>
+                    <xsl:apply-templates select="estimatedTime"/>
+                  </entry>
+                </row>
+              </xsl:for-each>
+              <xsl:for-each select="personnel">
+                <xsl:choose>
+                  <xsl:when test="*">
+                    <row>
+                      <entry>As required</entry>
+                      <entry>
+                        <xsl:value-of select="personCategory/@personCategoryCode"/>
+                      </entry>
+                      <entry>
+                        <xsl:apply-templates select="personSkill/@skillLevelCode"/>
+                        <xsl:if test="@numRequired">
+                          <xsl:text> (</xsl:text>
+                          <xsl:value-of select="@numRequired"/>
+                          <xsl:text>)</xsl:text>
+                        </xsl:if>
+                      </entry>
+                      <entry>
+                        <xsl:value-of select="trade"/>
+                      </entry>
+                      <entry>
+                        <xsl:apply-templates select="estimatedTime"/>
+                      </entry>
+                    </row>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <row>
+                      <entry>As required</entry>
+                    </row>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+              <row>
+                <entry>As required</entry>
+              </row>
+            </xsl:otherwise>
+          </xsl:choose>
         </tbody>
       </tgroup>
-    </table>      
+    </table>
   </xsl:template>
 
   <xsl:template match="reqQuantity">
@@ -735,26 +770,33 @@
               <xsl:for-each select="supportEquipDescrGroup/supportEquipDescr">
                 <xsl:variable name="id" select="./@id"/>
                 <xsl:element name="row">
-		  <xsl:element name="entry">
-		    <xsl:if test="./@id">
-		      <xsl:attribute name="xml:id">
-		        <xsl:call-template name="get.dmcode"/>
-		        <xsl:text>-</xsl:text>
-		        <xsl:value-of select="$id"/>
-		      </xsl:attribute>
-		    </xsl:if>
-		    <xsl:value-of select="name"/>
-		  </xsl:element>
-                  <entry><xsl:apply-templates select="catalogSeqNumberRef|natoStockNumber|identNumber|toolRef"/></entry>
-                  <entry><xsl:apply-templates select="reqQuantity"/></entry>
-                  <entry><xsl:apply-templates select="remarks"/></entry>
+                  <xsl:element name="entry">
+                    <xsl:if test="./@id">
+                      <xsl:attribute name="xml:id">
+                        <xsl:call-template name="get.dmcode"/>
+                        <xsl:text>-</xsl:text>
+                        <xsl:value-of select="$id"/>
+                      </xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="name"/>
+                  </xsl:element>
+                  <entry>
+                    <xsl:apply-templates
+                      select="catalogSeqNumberRef | natoStockNumber | identNumber | toolRef"/>
+                  </entry>
+                  <entry>
+                    <xsl:apply-templates select="reqQuantity"/>
+                  </entry>
+                  <entry>
+                    <xsl:apply-templates select="remarks"/>
+                  </entry>
                 </xsl:element>
               </xsl:for-each>
             </xsl:otherwise>
           </xsl:choose>
         </tbody>
       </tgroup>
-    </table>      
+    </table>
   </xsl:template>
 
   <xsl:template match="reqSupplies">
@@ -789,25 +831,32 @@
                 <xsl:variable name="id" select="./@id"/>
                 <xsl:element name="row">
                   <xsl:element name="entry">
-		    <xsl:if test="./@id">
-		      <xsl:attribute name="xml:id">
-		        <xsl:call-template name="get.dmcode"/>
-		        <xsl:text>-</xsl:text>
-		        <xsl:value-of select="$id"/>
-		      </xsl:attribute>
-		    </xsl:if>
-		    <xsl:value-of select="name"/>
-		  </xsl:element>
-                  <entry><xsl:apply-templates select="catalogSeqNumberRef|natoStockNumber|identNumber|supplyRqmtRef"/></entry>
-                  <entry><xsl:apply-templates select="reqQuantity"/></entry>
-                  <entry><xsl:apply-templates select="remarks"/></entry>
+                    <xsl:if test="./@id">
+                      <xsl:attribute name="xml:id">
+                        <xsl:call-template name="get.dmcode"/>
+                        <xsl:text>-</xsl:text>
+                        <xsl:value-of select="$id"/>
+                      </xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="name"/>
+                  </xsl:element>
+                  <entry>
+                    <xsl:apply-templates
+                      select="catalogSeqNumberRef | natoStockNumber | identNumber | supplyRqmtRef"/>
+                  </entry>
+                  <entry>
+                    <xsl:apply-templates select="reqQuantity"/>
+                  </entry>
+                  <entry>
+                    <xsl:apply-templates select="remarks"/>
+                  </entry>
                 </xsl:element>
               </xsl:for-each>
             </xsl:otherwise>
           </xsl:choose>
         </tbody>
       </tgroup>
-    </table>      
+    </table>
   </xsl:template>
 
   <xsl:template match="reqSpares">
@@ -842,25 +891,33 @@
                 <xsl:variable name="id" select="./@id"/>
                 <xsl:element name="row">
                   <xsl:element name="entry">
-		    <xsl:if test="./@id">
-		      <xsl:attribute name="xml:id">
-		        <xsl:call-template name="get.dmcode"/>
-		        <xsl:text>-</xsl:text>
-		        <xsl:value-of select="$id"/>
-		      </xsl:attribute>
-		    </xsl:if>
-		    <xsl:value-of select="name"/>
-		  </xsl:element>
-                  <entry><xsl:apply-templates select="catalogSeqNumberRef|natoStockNumber|identNumber|functionalItemRef"/></entry>
-                  <entry><xsl:apply-templates select="reqQuantity"/></entry>
-                  <entry><xsl:apply-templates select="remarks"/></entry>
+                    <xsl:if test="./@id">
+                      <xsl:attribute name="xml:id">
+                        <xsl:call-template name="get.dmcode"/>
+                        <xsl:text>-</xsl:text>
+                        <xsl:value-of select="$id"/>
+                      </xsl:attribute>
+                    </xsl:if>
+                    <xsl:value-of select="name"/>
+                  </xsl:element>
+                  <entry>
+                    <xsl:apply-templates
+                      select="catalogSeqNumberRef | natoStockNumber | identNumber | functionalItemRef"
+                    />
+                  </entry>
+                  <entry>
+                    <xsl:apply-templates select="reqQuantity"/>
+                  </entry>
+                  <entry>
+                    <xsl:apply-templates select="remarks"/>
+                  </entry>
                 </xsl:element>
               </xsl:for-each>
             </xsl:otherwise>
           </xsl:choose>
         </tbody>
       </tgroup>
-    </table>      
+    </table>
   </xsl:template>
 
   <xsl:template match="reqSafety">
@@ -881,7 +938,7 @@
     <xsl:apply-templates/>
   </xsl:template>
 
-  <xsl:template match="warning|caution|note">
+  <xsl:template match="warning | caution | note">
     <xsl:element name="{name()}">
       <xsl:call-template name="copy.id"/>
       <xsl:call-template name="revisionflag"/>
@@ -889,7 +946,8 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="para|warningAndCautionPara|notePara|simplePara|commonInfoDescrPara|attentionListItemPara">
+  <xsl:template
+    match="para | warningAndCautionPara | notePara | simplePara | commonInfoDescrPara | attentionListItemPara">
     <xsl:element name="para">
       <xsl:call-template name="copy.id"/>
       <xsl:call-template name="revisionflag"/>
@@ -902,14 +960,16 @@
       <xsl:call-template name="copy.id"/>
       <xsl:call-template name="revisionflag"/>
       <xsl:attribute name="label">
-	<xsl:number level="any" from="dmodule"/>
+        <xsl:number level="any" from="dmodule"/>
       </xsl:attribute>
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
 
   <xsl:template match="title">
-    <title><xsl:apply-templates/></title>
+    <title>
+      <xsl:apply-templates/>
+    </title>
   </xsl:template>
 
   <xsl:template name="make.imageobject" xmlns:ier="InfoEntityResolver">
@@ -917,10 +977,10 @@
     <xsl:variable name="fileref">
       <xsl:choose>
         <xsl:when test="function-available('ier:resolve')">
-	  <xsl:value-of select="ier:resolve($entity)"/>
+          <xsl:value-of select="ier:resolve($entity)"/>
         </xsl:when>
         <xsl:otherwise>
-	  <xsl:value-of select="$entity"/>
+          <xsl:value-of select="$entity"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
@@ -934,31 +994,31 @@
       <xsl:element name="imagedata">
         <xsl:attribute name="align">center</xsl:attribute>
         <xsl:attribute name="fileref">
-	  <xsl:value-of select="$fileref"/>
+          <xsl:value-of select="$fileref"/>
         </xsl:attribute>
         <xsl:if test="@reproductionWidth">
-	  <xsl:attribute name="width">
-	    <xsl:value-of select="@reproductionWidth"/>
-	  </xsl:attribute>
-	  <xsl:attribute name="contentwidth">
-	    <xsl:value-of select="@reproductionWidth"/>
-	  </xsl:attribute>
+          <xsl:attribute name="width">
+            <xsl:value-of select="@reproductionWidth"/>
+          </xsl:attribute>
+          <xsl:attribute name="contentwidth">
+            <xsl:value-of select="@reproductionWidth"/>
+          </xsl:attribute>
         </xsl:if>
         <xsl:if test="@reproductionHeight">
-	  <xsl:attribute name="depth">
-	    <xsl:value-of select="@reproductionHeight"/>
-	  </xsl:attribute>
-	  <xsl:attribute name="contentdepth">
-	    <xsl:value-of select="@reproductionHeight"/>
-	  </xsl:attribute>
+          <xsl:attribute name="depth">
+            <xsl:value-of select="@reproductionHeight"/>
+          </xsl:attribute>
+          <xsl:attribute name="contentdepth">
+            <xsl:value-of select="@reproductionHeight"/>
+          </xsl:attribute>
         </xsl:if>
         <xsl:choose>
-	  <xsl:when test="@reproductionScale">
-	    <xsl:attribute name="scale">
-	      <xsl:value-of select="@reproductionScale"/>
-	    </xsl:attribute>
-	  </xsl:when>
-	  <!--
+          <xsl:when test="@reproductionScale">
+            <xsl:attribute name="scale">
+              <xsl:value-of select="@reproductionScale"/>
+            </xsl:attribute>
+          </xsl:when>
+          <!--
 	  <xsl:otherwise>
 	    <xsl:attribute name="scalefit">1</xsl:attribute>
 	  </xsl:otherwise>
@@ -973,7 +1033,9 @@
       <xsl:call-template name="make.imageobject"/>
     </mediaobject>
     <caption>
-      <para><xsl:value-of select="@infoEntityIdent"/></para>
+      <para>
+        <xsl:value-of select="@infoEntityIdent"/>
+      </para>
     </caption>
     <xsl:apply-templates/>
   </xsl:template>
@@ -993,21 +1055,21 @@
   <xsl:template match="logo">
     <xsl:apply-templates/>
   </xsl:template>
-  
-  <xsl:template match="randomList|attentionRandomList">
+
+  <xsl:template match="randomList | attentionRandomList">
     <xsl:element name="itemizedlist">
       <xsl:call-template name="revisionflag"/>
       <xsl:if test="@listItemPrefix = 'pf01'">
         <!-- "simple list" -->
         <xsl:attribute name="mark">
-	  <xsl:text>none</xsl:text>
+          <xsl:text>none</xsl:text>
         </xsl:attribute>
       </xsl:if>
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="sequentialList|attentionSequentialList">
+  <xsl:template match="sequentialList | attentionSequentialList">
     <xsl:element name="orderedlist">
       <xsl:call-template name="revisionflag"/>
       <xsl:apply-templates/>
@@ -1020,8 +1082,8 @@
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
-  
-  <xsl:template match="definitionListHeader|definitionListItem">
+
+  <xsl:template match="definitionListHeader | definitionListItem">
     <xsl:element name="varlistentry">
       <xsl:call-template name="revisionflag"/>
       <xsl:apply-templates/>
@@ -1030,10 +1092,10 @@
 
   <xsl:template match="termTitle">
     <xsl:element name="term">
-      <xsl:call-template name="revisionflag"/>    
+      <xsl:call-template name="revisionflag"/>
       <emphasis role="bold">
         <emphasis role="underline">
-	  <xsl:apply-templates/>
+          <xsl:apply-templates/>
         </emphasis>
       </emphasis>
     </xsl:element>
@@ -1044,12 +1106,12 @@
       <xsl:call-template name="revisionflag"/>
       <emphasis role="bold">
         <emphasis role="underline">
-	  <xsl:apply-templates/>
+          <xsl:apply-templates/>
         </emphasis>
       </emphasis>
     </xsl:element>
   </xsl:template>
-  
+
   <xsl:template match="listItemTerm">
     <xsl:element name="term">
       <xsl:call-template name="revisionflag"/>
@@ -1057,13 +1119,14 @@
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="listItem|listItemDefinition|attentionSequentialListItem|attentionRandomListItem">
+  <xsl:template
+    match="listItem | listItemDefinition | attentionSequentialListItem | attentionRandomListItem">
     <xsl:element name="listitem">
       <xsl:call-template name="revisionflag"/>
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
-  
+
   <xsl:template match="table">
     <xsl:element name="table">
       <xsl:call-template name="copy.id"/>
@@ -1078,7 +1141,7 @@
       <xsl:attribute name="colsep">0</xsl:attribute>
       <xsl:for-each select="@*">
         <xsl:if test="name(.) != 'id'">
-	  <xsl:copy/>
+          <xsl:copy/>
         </xsl:if>
       </xsl:for-each>
       <xsl:apply-templates/>
@@ -1089,30 +1152,30 @@
     <xsl:element name="tbody">
       <xsl:attribute name="rowsep">0</xsl:attribute>
       <xsl:for-each select="@*">
-	<xsl:copy/>
+        <xsl:copy/>
       </xsl:for-each>
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
 
-  <xsl:template match="tgroup|thead|colspec|row|entry">
+  <xsl:template match="tgroup | thead | colspec | row | entry">
     <xsl:element name="{name()}">
       <xsl:call-template name="copy.id"/>
       <xsl:for-each select="@*">
         <xsl:choose>
-	  <xsl:when test="name(.) = 'id'">
-	    <!-- ignore it -->
-	  </xsl:when>
-	  <xsl:when test="name(.) = 'colwidth' and string(number(.))!='NaN'">
-	  <!-- colwidth is just a plain number so suffix with '*' -->
-	  <xsl:attribute name="colwidth">
-	    <xsl:value-of select="."/>
-	    <xsl:text>*</xsl:text>
-	    </xsl:attribute>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:copy/>
-	  </xsl:otherwise>
+          <xsl:when test="name(.) = 'id'">
+            <!-- ignore it -->
+          </xsl:when>
+          <xsl:when test="name(.) = 'colwidth' and string(number(.)) != 'NaN'">
+            <!-- colwidth is just a plain number so suffix with '*' -->
+            <xsl:attribute name="colwidth">
+              <xsl:value-of select="."/>
+              <xsl:text>*</xsl:text>
+            </xsl:attribute>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:copy/>
+          </xsl:otherwise>
         </xsl:choose>
       </xsl:for-each>
       <xsl:apply-templates/>
@@ -1145,7 +1208,9 @@
         <programlisting><xsl:apply-templates/></programlisting>
       </xsl:when>
       <xsl:otherwise>
-        <literal><xsl:apply-templates/></literal>
+        <literal>
+          <xsl:apply-templates/>
+        </literal>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -1158,11 +1223,15 @@
   </xsl:template>
 
   <xsl:template match="subScript">
-    <subscript><xsl:apply-templates/></subscript>
+    <subscript>
+      <xsl:apply-templates/>
+    </subscript>
   </xsl:template>
 
   <xsl:template match="superScript">
-    <superscript><xsl:apply-templates/></superscript>
+    <superscript>
+      <xsl:apply-templates/>
+    </superscript>
   </xsl:template>
 
   <xsl:template name="revisionflag">
@@ -1175,32 +1244,33 @@
     <xsl:if test="$change.mark = '1'">
       <xsl:attribute name="revisionflag">
         <xsl:choose>
-	  <xsl:when test="$change.type = 'add'">
-	    <xsl:text>added</xsl:text>
-	  </xsl:when>
-	  <xsl:when test="$change.type = 'delete'">
-	    <xsl:text>deleted</xsl:text>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <xsl:text>changed</xsl:text>
-	  </xsl:otherwise>      
+          <xsl:when test="$change.type = 'add'">
+            <xsl:text>added</xsl:text>
+          </xsl:when>
+          <xsl:when test="$change.type = 'delete'">
+            <xsl:text>deleted</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:text>changed</xsl:text>
+          </xsl:otherwise>
         </xsl:choose>
       </xsl:attribute>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="changeInline">
     <xsl:element name="phrase">
       <xsl:call-template name="revisionflag"/>
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
-  
+
   <xsl:template name="gen.lodm">
-    <para>The listed documents are included in issue
-      <xsl:value-of select="/publication/pm/identAndStatusSection/pmAddress/pmIdent/issueInfo/@issueNumber"/>, dated
-      <xsl:apply-templates select="/publication/pm/identAndStatusSection/pmAddress/pmAddressItems/issueDate"/>, of this publication.
-    </para>
+    <para>The listed documents are included in issue <xsl:value-of
+        select="/publication/pm/identAndStatusSection/pmAddress/pmIdent/issueInfo/@issueNumber"/>,
+      dated <xsl:apply-templates
+        select="/publication/pm/identAndStatusSection/pmAddress/pmAddressItems/issueDate"/>, of this
+      publication. </para>
     <para>C = Changed data module</para>
     <para>N = New data module</para>
     <informaltable pgwide="1" frame="topbot" colsep="0" rowsep="0">
@@ -1212,18 +1282,18 @@
           <row>
             <entry>Document title</entry>
             <entry>Data module code</entry>
-            <entry></entry>
+            <entry/>
             <entry>Issue date</entry>
             <entry>No. of pages</entry>
             <entry>Applicable to</entry>
           </row>
         </thead>
         <tbody>
-	  <xsl:if test="not(/publication/pm/content/pmEntry//dmRef)">
-	    <row>
-	      <entry>None</entry>
-	    </row>
-	  </xsl:if>
+          <xsl:if test="not(/publication/pm/content/pmEntry//dmRef)">
+            <row>
+              <entry>None</entry>
+            </row>
+          </xsl:if>
           <xsl:for-each select="/publication/pm/content/pmEntry//dmRef">
             <xsl:variable name="dm.ref.dm.code">
               <xsl:apply-templates select="dmRefIdent/dmCode"/>
@@ -1251,16 +1321,17 @@
                   </entry>
                   <entry>
                     <xsl:choose>
-                      <xsl:when test="identAndStatusSection/dmStatus/@issueType='new'">
+                      <xsl:when test="identAndStatusSection/dmStatus/@issueType = 'new'">
                         <xsl:text>N</xsl:text>
                       </xsl:when>
-                      <xsl:when test="identAndStatusSection/dmStatus/@issueType='changed'">
+                      <xsl:when test="identAndStatusSection/dmStatus/@issueType = 'changed'">
                         <xsl:text>C</xsl:text>
                       </xsl:when>
                     </xsl:choose>
                   </entry>
                   <entry>
-                    <xsl:apply-templates select="identAndStatusSection/dmAddress/dmAddressItems/issueDate"/>
+                    <xsl:apply-templates
+                      select="identAndStatusSection/dmAddress/dmAddressItems/issueDate"/>
                   </entry>
                   <entry>
                     <para>

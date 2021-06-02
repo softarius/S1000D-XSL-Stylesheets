@@ -17,7 +17,7 @@
   xmlns:rx="http://www.renderx.com/XSL/Extensions" version="1.0">
 
   <xsl:import
-    href="http://docbook.sourceforge.net/release/xsl-ns/current/fo/docbook.xsl"/>
+    href="../../DocBook/docbook-xsl-ns-1.78.1/fo/docbook.xsl"/>
 
   <xsl:output indent="no" method="xml"/>
 
