@@ -13,7 +13,8 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:fo="http://www.w3.org/1999/XSL/Format" version="1.0">
-
+  <xsl:output encoding="UTF-8" />
+  
   <xsl:param name="date.time"/>
 
   <xsl:param name="want.producedby.blurb">yes</xsl:param>
@@ -37,6 +38,9 @@
 
   <xsl:template match="/publication">
     <book version='5.0'>
+      <xsl:attribute name="xml:lang">
+        <xsl:value-of select="@xml:lang"/>
+      </xsl:attribute>
       <xsl:choose>
         <xsl:when test="pm">
           <xsl:apply-templates select="pm"/>
