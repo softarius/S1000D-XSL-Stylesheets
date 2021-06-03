@@ -21,7 +21,7 @@
 
   <xsl:param name="want.inwork.blurb">yes</xsl:param>
 
-  <xsl:param name="publication.code">UNKNOWN PUBLICATION</xsl:param>
+  <xsl:param name="publication.code">12345</xsl:param>
 
   <xsl:param name="body.start.indent">20mm</xsl:param>
 
@@ -53,7 +53,7 @@
   </xsl:template>
 
   <xsl:template match="*">
-    <xsl:message>Unhandled: <xsl:call-template name="element.name"/></xsl:message>
+    <xsl:message>Не управляется: <xsl:call-template name="element.name"/></xsl:message>
     <xsl:if test="$show.unimplemented.markup != 0 and ancestor-or-self::dmodule">
       <fo:block color="red">
         <xsl:apply-templates select="." mode="literal"/>
@@ -174,7 +174,7 @@
         <xsl:apply-templates select="dmStatus/applic/displayText/simplePara/node()"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:text>All</xsl:text>
+        <xsl:text>ко всем изделиям</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -207,7 +207,7 @@
           select="(dmStatus/logo | /publication/pm/identAndStatusSection/pmStatus/logo)[1]"/>
       </bibliomisc>
       <xsl:if test="number(dmAddress/dmIdent/issueInfo/@inWork) != 0 and $want.inwork.blurb = 'yes'">
-        <bibliomisc role="inwork.blurb"> This is a draft copy of issue <xsl:value-of
+        <bibliomisc role="inwork.blurb"> Копия <xsl:value-of
             select="dmAddress/dmIdent/issueInfo/@issueNumber"/>-<xsl:value-of
             select="dmAddress/dmIdent/issueInfo/@inWork"/>. <xsl:if test="$date.time != ''"> Printed
               <xsl:value-of select="$date.time"/>. </xsl:if>
@@ -215,7 +215,7 @@
       </xsl:if>
       <xsl:if
         test="dmStatus/responsiblePartnerCompany/enterpriseName and $want.producedby.blurb = 'yes'">
-        <bibliomisc role="producedby.blurb"> Produced by: <xsl:value-of
+        <bibliomisc role="producedby.blurb"> Изготовитель -  <xsl:value-of
             select="dmStatus/responsiblePartnerCompany/enterpriseName"/>
         </bibliomisc>
       </xsl:if>
@@ -240,10 +240,10 @@
       <bibliomisc role="classification">
         <xsl:choose>
           <xsl:when test="*/security/@securityClassification = '01'">
-            <xsl:text>Unclassified</xsl:text>
+            <xsl:text></xsl:text>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:text>Classified: </xsl:text>
+            <xsl:text></xsl:text>
             <xsl:value-of select="*/security/@securityClassification"/>
           </xsl:otherwise>
         </xsl:choose>
@@ -258,20 +258,20 @@
     <xsl:processing-instruction name="dbfo-need">
       <xsl:text>height="2cm"</xsl:text>
     </xsl:processing-instruction>
-    <bridgehead renderas="sect1">References</bridgehead>
+    <bridgehead renderas="sect1">Ссылки</bridgehead>
     <table pgwide="1" frame="topbot" colsep="0">
-      <title>References</title>
+      <title>Ссылки</title>
       <tgroup cols="2" align="left">
         <thead>
           <row>
-            <entry>Data Module/Technical publication</entry>
-            <entry>Title</entry>
+            <entry>Документ</entry>
+            <entry>Заголовок</entry>
           </row>
         </thead>
         <tbody>
           <xsl:if test="not(content/refs)">
             <row>
-              <entry>None</entry>
+              <entry>Нет</entry>
               <entry/>
             </row>
           </xsl:if>
@@ -392,7 +392,7 @@
             </xsl:when>
             <xsl:when test="name($target[1]) = 'figure'">
               <xsl:for-each select="$target">
-                <xsl:text>Fig&#160;</xsl:text>
+                <xsl:text>Рис&#160;</xsl:text>
                 <xsl:apply-templates select="." mode="number"/>
               </xsl:for-each>
             </xsl:when>
@@ -405,7 +405,7 @@
             </xsl:when>
             <xsl:when test="name($target[1]) = 'hotspot'">
               <xsl:for-each select="$target">
-                <xsl:text>Fig&#160;</xsl:text>
+                <xsl:text>Рис&#160;</xsl:text>
                 <xsl:for-each select="parent::*">
                   <xsl:apply-templates select="." mode="number"/>
                 </xsl:for-each>
@@ -535,7 +535,7 @@
     <xsl:processing-instruction name="dbfo-need">
       <xsl:text>height="2cm"</xsl:text>
     </xsl:processing-instruction>
-    <bridgehead renderas="centerhead">Preliminary requirements</bridgehead>
+    <bridgehead renderas="centerhead">Требования</bridgehead>
     <xsl:apply-templates select="reqCondGroup"/>
     <xsl:apply-templates select="reqPersons"/>
     <xsl:apply-templates select="reqSupportEquips"/>
@@ -548,7 +548,7 @@
     <xsl:processing-instruction name="dbfo-need">
       <xsl:text>height="2cm"</xsl:text>
     </xsl:processing-instruction>
-    <bridgehead renderas="centerhead">Requirements after job completion</bridgehead>
+    <bridgehead renderas="centerhead">Требования после проведения работ</bridgehead>
     <xsl:apply-templates/>
   </xsl:template>
 
@@ -556,14 +556,14 @@
     <xsl:processing-instruction name="dbfo-need">
       <xsl:text>height="2cm"</xsl:text>
     </xsl:processing-instruction>
-    <bridgehead renderas="sidehead0">Required conditions</bridgehead>
+    <bridgehead renderas="sidehead0">Требуемые условия</bridgehead>
     <table pgwide="1" frame="topbot" colsep="0">
-      <title>Required conditions</title>
+      <title>Условия</title>
       <tgroup cols="2" align="left">
         <thead>
           <row>
-            <entry>Action/Condition</entry>
-            <entry>Data module/Technical publication</entry>
+            <entry>Действие (условние)</entry>
+            <entry>Документ</entry>
           </row>
         </thead>
         <tbody>
@@ -571,7 +571,7 @@
             <row>
               <xsl:choose>
                 <xsl:when test="name() = 'noConds'">
-                  <entry>None</entry>
+                  <entry>Нет</entry>
                   <entry/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -1289,7 +1289,7 @@
             <entry/>
             <entry>Issue date</entry>
             <entry>No. of pages</entry>
-            <entry>Applicable to</entry>
+            <entry>Применимо к </entry>
           </row>
         </thead>
         <tbody>
