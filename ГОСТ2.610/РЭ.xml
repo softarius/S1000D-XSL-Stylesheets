@@ -2,7 +2,7 @@
 <dmodule xmlns:dc="http://www.purl.org/dc/elements/1.1/" xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="C:\web\s1000d\data_dictionary_50-000_02\Files\xml_schema_flat/descript.xsd">
+    xsi:noNamespaceSchemaLocation="D:\web\s1000d\data_dictionary_50-000_02\Files\xml_schema_flat/descript.xsd">
     <identAndStatusSection>
         <dmAddress>
             <dmIdent>
@@ -233,41 +233,30 @@
                                 <thead>
                                     <row>
                                         <entry>
-                                            <para>Н аименование и обозначение изделия {состав ной
+                                            <para>Наименование и обозначение изделия (составной
                                                 части)</para>
                                         </entry>
-                                    </row>
-                                    <row>
                                         <entry>
                                             <para>Наименование и марка ГСМ. обозначение</para>
                                         </entry>
-                                    </row>
-                                    <row>
                                         <entry>
-                                            <para>М асса, (объем) заправки ГСМ. « (Д М 3)</para>
+                                            <para>Масса, (объем) заправки ГСМ</para>
                                         </entry>
-                                    </row>
-                                    <row>
                                         <entry>
                                             <para>Норма расхода ГСМ</para>
                                         </entry>
-                                    </row>
-                                    <row>
                                         <entry>
                                             <para>Периодичность способов смены (пополнения)
                                                 ГСМ</para>
                                         </entry>
-                                    </row>
-                                    <row>
                                         <entry>
                                             <para>Номера позиций точек заправки ГСМ на схеме</para>
                                         </entry>
-                                    </row>
-                                    <row>
                                         <entry>
                                             <para>Примечание</para>
                                         </entry>
                                     </row>
+
                                 </thead>
                                 <tbody>
                                     <row>
