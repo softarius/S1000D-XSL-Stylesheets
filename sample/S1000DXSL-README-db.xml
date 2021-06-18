@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fo="http://www.w3.org/1999/XSL/Format" version="5.0" xml:lang="ru"><chapter xml:id="S1000DXSL-A-00-00-00-00A-040A-A"><info><title>S1000D XSL Stylesheets</title><subtitle>README</subtitle><date>2011-01-30</date><bibliomisc role="publication.title">S1000D XSL РЭ</bibliomisc><bibliomisc role="publication.author">АО "НТЦ РЭБ"</bibliomisc><bibliomisc role="page.header.logo">
         <inlinemediaobject><imageobject xmlns:ier="InfoEntityResolver"><imagedata align="center" fileref="publisher-logo.PNG" depth="12mm" contentdepth="12mm"/></imageobject></inlinemediaobject>
-      </bibliomisc><bibliomisc role="inwork.blurb"> Копия 001-01. </bibliomisc><bibliomisc role="producedby.blurb"> Изготовитель -  Smart Avionics Ltd.</bibliomisc><bibliomisc role="data.module.code">S1000DXSL-A-00-00-00-00A-040A-A</bibliomisc><bibliomisc role="publication.code">S1000DXSL-SMART-00001-00</bibliomisc><bibliomisc role="classification"/><bibliomisc role="applicability">Все</bibliomisc></info><?dbfo-need height="2cm"?>
+      </bibliomisc><bibliomisc role="inwork.blurb"> Копия 001-01. </bibliomisc><bibliomisc role="producedby.blurb"> Изготовитель -  АО "НТЦ РЭБ"</bibliomisc><bibliomisc role="data.module.code">S1000DXSL-A-00-00-00-00A-040A-A</bibliomisc><bibliomisc role="publication.code">S1000DXSL-SMART-00001-00</bibliomisc><bibliomisc role="classification"/><bibliomisc role="applicability">Все</bibliomisc></info><?dbfo-need height="2cm"?>
       <section>
         <title>Introduction</title>
         <para>
