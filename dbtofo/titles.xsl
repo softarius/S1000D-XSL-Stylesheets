@@ -217,7 +217,7 @@
         <fo:table-column column-width="proportional-column-width(1)"/>
         <fo:table-body>
           <fo:table-row>
-            <fo:table-cell width="12mm">
+            <fo:table-cell width="12mm"> <!-- отступы нумерации -->
               <fo:block text-align="left">
                 <xsl:apply-templates mode="label.markup" select="."/>   
               </fo:block>
