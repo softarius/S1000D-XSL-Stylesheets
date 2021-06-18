@@ -35,10 +35,11 @@
   </xsl:param>
 
   <xsl:param name="hyphenate">true</xsl:param>
- <xsl:param name="font.family" select="'Arial'"/>
+ <xsl:param name="font.family" select="'Liberation Sans'"/>
 
-  <xsl:param name="body.font.family" select="'Arial'"/>
-  <xsl:param name="title.font.family" select="'Arial'"/>
+  <xsl:param name="body.font.family" select="'Liberation Sans'"/>
+  <xsl:param name="title.font.family" select="'Liberation Sans'"/>
+  <xsl:param name="monospace.font.family">Liberation Mono</xsl:param>
   
   <xsl:param name="page.margin.top">11mm</xsl:param>
   <xsl:param name="region.before.extent">15mm</xsl:param>

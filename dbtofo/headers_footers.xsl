@@ -148,7 +148,7 @@
               <xsl:choose>
                 <xsl:when test="$sequence = 'first' or $sequence = 'odd'">
                   <fo:block font-size="10pt" font-weight="normal">
-                    <xsl:text>Applicable to: </xsl:text>
+                    <xsl:text>Применимость: </xsl:text>
                     <fo:retrieve-marker retrieve-class-name="chapter.applicability"
                       retrieve-position="first-including-carryover"
                       retrieve-boundary="page-sequence"/>
@@ -175,7 +175,7 @@
                 </xsl:when>
                 <xsl:otherwise>
                   <fo:block font-size="10pt" font-weight="normal">
-                    <xsl:text>Applicable to: </xsl:text>
+                    <xsl:text>Применимость: </xsl:text>
                     <fo:retrieve-marker retrieve-class-name="chapter.applicability"
                       retrieve-position="first-including-carryover"
                       retrieve-boundary="page-sequence"/>
@@ -203,7 +203,7 @@
                 </xsl:when>
                 <xsl:otherwise>
                   <fo:block font-size="11pt" font-weight="bold">
-                    <xsl:text>Page </xsl:text>
+                    <xsl:text>Стр. </xsl:text>
                     <fo:page-number/>
                     <fo:leader leader-length="1em"/>
                     <fo:retrieve-marker retrieve-class-name="chapter.issue.date"
@@ -228,7 +228,7 @@
                     <fo:retrieve-marker retrieve-class-name="chapter.issue.date"
                       retrieve-position="first-including-carryover"
                       retrieve-boundary="page-sequence"/>
-                    <fo:leader leader-length="1em"/><xsl:text>Page </xsl:text>
+                    <fo:leader leader-length="1em"/><xsl:text>Стр. </xsl:text>
                     <fo:page-number/>
                   </fo:block>
                 </xsl:when>

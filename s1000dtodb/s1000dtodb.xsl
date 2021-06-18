@@ -258,7 +258,7 @@
     <xsl:processing-instruction name="dbfo-need">
       <xsl:text>height="2cm"</xsl:text>
     </xsl:processing-instruction>
-    <bridgehead renderas="sect1">Ссылки</bridgehead>
+<!--    <bridgehead renderas="sect1">Ссылки</bridgehead>
     <table pgwide="1" frame="topbot" colsep="0">
       <title>Ссылки</title>
       <tgroup cols="2" align="left">
@@ -312,7 +312,7 @@
         </tbody>
       </tgroup>
     </table>
-  </xsl:template>
+-->  </xsl:template>
 
   <xsl:template match="*" mode="number">
     <xsl:number level="any" from="dmodule"/>
@@ -984,7 +984,7 @@
           <xsl:value-of select="ier:resolve($entity)"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="$entity"/>
+          <xsl:value-of select="$entity"/><xsl:text>.PNG</xsl:text>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
@@ -1036,11 +1036,11 @@
     <mediaobject>
       <xsl:call-template name="make.imageobject"/>
     </mediaobject>
-    <caption>
+   <!-- <caption>
       <para>
         <xsl:value-of select="@infoEntityIdent"/>
       </para>
-    </caption>
+    </caption>-->
     <xsl:apply-templates/>
   </xsl:template>
 

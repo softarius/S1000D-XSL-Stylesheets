@@ -15,7 +15,7 @@
       </pmIdent>
       <pmAddressItems>
         <issueDate year="2011" month="01" day="28"/>
-        <pmTitle>S1000D XSL стилевые таблицы</pmTitle>
+        <pmTitle>S1000D XSL РЭ</pmTitle>
       </pmAddressItems>
     </pmAddress>
     <pmStatus>
@@ -24,11 +24,11 @@
         <symbol infoEntityIdent="publisher-logo" reproductionHeight="12mm"/>
       </logo>
       <responsiblePartnerCompany>
-        <enterpriseName>Smart Avionics Ltd.</enterpriseName>
+        <enterpriseName>АО "НТЦ РЭБ"</enterpriseName>
       </responsiblePartnerCompany>
       <applic>
         <displayText>
-          <simplePara>All</simplePara>
+          <simplePara>Все</simplePara>
         </displayText>
       </applic>
       <qualityAssurance>
