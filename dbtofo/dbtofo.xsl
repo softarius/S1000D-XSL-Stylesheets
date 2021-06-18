@@ -15,7 +15,7 @@
   xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
   xmlns:rx="http://www.renderx.com/XSL/Extensions" version="1.0">
 
-  <xsl:import href="../../DocBook/docbook-xsl-ns-1.78.1/fo/docbook.xsl"/>
+  <xsl:import href="../../docbook-xsl-ns-1.78.1/fo/docbook.xsl"/>
   <xsl:output encoding="UTF-8"/>
   <xsl:param name="l10n.gentext.default.language" select="'ru'"/>
   <xsl:param name="paper.type" select="'A4'"/>
@@ -54,7 +54,7 @@
   <xsl:param name="page.margin.outer">15mm</xsl:param>
 
   <xsl:param name="body.margin.inner">5mm</xsl:param>
-  <xsl:param name="body.start.indent">0mm</xsl:param>
+  <xsl:param name="body.start.indent">5mm</xsl:param>
 
   <xsl:param name="itemizedlist.label.width">7mm</xsl:param>
   <xsl:param name="orderedlist.label.width">7mm</xsl:param>

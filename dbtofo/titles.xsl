@@ -217,9 +217,9 @@
         <fo:table-column column-width="proportional-column-width(1)"/>
         <fo:table-body>
           <fo:table-row>
-            <fo:table-cell>
+            <fo:table-cell width="12mm">
               <fo:block text-align="left">
-                <xsl:apply-templates mode="label.markup" select="."/>
+                <xsl:apply-templates mode="label.markup" select="."/>   
               </fo:block>
             </fo:table-cell>
             <fo:table-cell>
