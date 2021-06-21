@@ -8,7 +8,7 @@
   <identAndStatusSection>
     <pmAddress>
       <pmIdent>
-        <pmCode modelIdentCode="S1000DXSL" pmIssuer="SMART"
+        <pmCode modelIdentCode="S1000DXSL" pmIssuer="SFTR"
           pmNumber="00001" pmVolume="00"/>
         <language languageIsoCode="ru" countryIsoCode="RU"/>
         <issueInfo issueNumber="001" inWork="00"/>
@@ -24,7 +24,7 @@
         <symbol infoEntityIdent="publisher-logo" reproductionHeight="12mm"/>
       </logo>
       <responsiblePartnerCompany>
-        <enterpriseName>АО "НТЦ РЭБ"</enterpriseName>
+        <enterpriseName>Софтариус</enterpriseName>
       </responsiblePartnerCompany>
       <applic>
         <displayText>
