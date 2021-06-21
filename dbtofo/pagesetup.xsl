@@ -204,5 +204,15 @@
     </fo:static-content>
     
   </xsl:template>
+  
+  <xsl:template name="footnote-separator">
+    <fo:static-content flow-name="xsl-footnote-separator">
+      <fo:block>
+        <fo:leader padding-start="5mm" xsl:use-attribute-sets="footnote.sep.leader.properties">
+          <xsl:attribute name="leader-length">50mm</xsl:attribute>
+        </fo:leader>
+      </fo:block>
+    </fo:static-content>
+  </xsl:template>
 
 </xsl:stylesheet>

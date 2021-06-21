@@ -15,7 +15,7 @@
   xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"
   xmlns:rx="http://www.renderx.com/XSL/Extensions" version="1.0">
 
-  <xsl:import href="../../docbook-xsl-ns-1.78.1/fo/docbook.xsl"/>
+  <xsl:import href="../../Docbook/docbook-xsl-ns-1.78.1/fo/docbook.xsl"/>
   <xsl:output encoding="UTF-8"/>
   <xsl:param name="l10n.gentext.default.language" select="'ru'"/>
   <xsl:param name="paper.type" select="'A4'"/>
@@ -106,8 +106,8 @@
     <xsl:attribute name="font-weight">normal</xsl:attribute>
     <xsl:attribute name="font-style">normal</xsl:attribute>
     <xsl:attribute name="text-align">left</xsl:attribute>
-    <xsl:attribute name="start-indent">0pt</xsl:attribute>
-    <xsl:attribute name="text-indent">0pt</xsl:attribute>
+    <xsl:attribute name="start-indent">0mm</xsl:attribute>
+    <xsl:attribute name="text-indent">5mm</xsl:attribute>
     <xsl:attribute name="hyphenate">
       <xsl:value-of select="$hyphenate"/>
     </xsl:attribute>
@@ -140,6 +140,7 @@
 
   <xsl:param name="ulink.show">1</xsl:param>
   <xsl:param name="ulink.footnotes">1</xsl:param>
+
 
   <xsl:param name="local.l10n.xml" select="document('')"/>
 
