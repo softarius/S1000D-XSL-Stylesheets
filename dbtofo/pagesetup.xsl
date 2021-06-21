@@ -48,12 +48,12 @@
                       column-count="{$column.count.body}">
       </fo:region-body>
       <fo:region-before region-name="xsl-region-before-first"
-                        extent="{$region.before.extent}"
+                        extent="{$region.before.extent}" 
                         display-align="before"/>
-      <fo:region-after region-name="xsl-region-after-first"
+      <fo:region-after region-name="xsl-region-after-first" 
                        extent="{$region.after.extent}"
                        display-align="after"/>
-      <fo:region-start region-name="xsl-region-start-first"
+      <fo:region-start region-name="xsl-region-start-first" 
                        extent="{$body.margin.inner}"
                        reference-orientation="90"
                        display-align="before"/>
@@ -86,12 +86,12 @@
                       column-count="{$column.count.body}">
       </fo:region-body>
       <fo:region-before region-name="xsl-region-before-odd"
-                        extent="{$region.before.extent}"
+        extent="{$region.before.extent}" 
                         display-align="before"/>
       <fo:region-after region-name="xsl-region-after-odd"
-                       extent="{$region.after.extent}"
+                       extent="{$region.after.extent}" 
                        display-align="after"/>
-      <fo:region-start region-name="xsl-region-start-odd"
+      <fo:region-start region-name="xsl-region-start-odd" 
                        extent="{$body.margin.inner}"
                        reference-orientation="90"
                        display-align="before"/>
@@ -123,15 +123,15 @@
                       column-gap="{$column.gap.body}"
                       column-count="{$column.count.body}">
       </fo:region-body>
-      <fo:region-before region-name="xsl-region-before-even"
+      <fo:region-before region-name="xsl-region-before-even" 
                         extent="{$region.before.extent}"
                         display-align="before"/>
       <fo:region-after region-name="xsl-region-after-even"
-                       extent="{$region.after.extent}"
+                       extent="{$region.after.extent}" 
                        display-align="after"/>
       <fo:region-end region-name="xsl-region-end-even"
                      extent="{$body.margin.inner}"
-                     reference-orientation="90"
+                     reference-orientation="90" 
                      display-align="before"/>
     </fo:simple-page-master>
 
@@ -205,14 +205,14 @@
     
   </xsl:template>
   
-  <xsl:template name="footnote-separator">
+ <!-- <xsl:template name="footnote-separator">
     <fo:static-content flow-name="xsl-footnote-separator">
       <fo:block>
-        <fo:leader padding-start="5mm" xsl:use-attribute-sets="footnote.sep.leader.properties">
+        <fo:leader padding-start="0mm" xsl:use-attribute-sets="footnote.sep.leader.properties">
           <xsl:attribute name="leader-length">50mm</xsl:attribute>
         </fo:leader>
       </fo:block>
     </fo:static-content>
-  </xsl:template>
+  </xsl:template>-->
 
 </xsl:stylesheet>

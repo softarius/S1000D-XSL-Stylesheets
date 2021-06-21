@@ -35,12 +35,12 @@
   </xsl:param>
 
   <xsl:param name="hyphenate">true</xsl:param>
- <xsl:param name="font.family" select="'Liberation Sans'"/>
+  <xsl:param name="font.family">Liberation Sans</xsl:param>
 
-  <xsl:param name="body.font.family" select="'Liberation Sans'"/>
-  <xsl:param name="title.font.family" select="'Liberation Sans'"/>
+  <xsl:param name="body.font.family" select="$font.family"/>
+  <xsl:param name="title.font.family" select="$font.family"/>
   <xsl:param name="monospace.font.family">Liberation Mono</xsl:param>
-  
+
   <xsl:param name="page.margin.top">11mm</xsl:param>
   <xsl:param name="region.before.extent">15mm</xsl:param>
   <xsl:param name="body.margin.top">25mm</xsl:param>
@@ -54,7 +54,7 @@
   <xsl:param name="page.margin.outer">15mm</xsl:param>
 
   <xsl:param name="body.margin.inner">5mm</xsl:param>
-  <xsl:param name="body.start.indent">5mm</xsl:param>
+  <xsl:param name="body.start.indent">0mm</xsl:param>
 
   <xsl:param name="itemizedlist.label.width">7mm</xsl:param>
   <xsl:param name="orderedlist.label.width">7mm</xsl:param>

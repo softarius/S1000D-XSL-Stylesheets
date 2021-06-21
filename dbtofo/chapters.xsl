@@ -88,7 +88,7 @@
 	  </fo:block>
         </xsl:with-param>
         <xsl:with-param name="content-outer">
-	  <fo:block text-align-last="left" margin-left="{$region.after.extent}">
+	  <fo:block text-align-last="left" margin-left="{$region.after.extent}" margin-top="-5mm">
 	    <fo:inline xsl:use-attribute-sets="root.properties" font-size="8pt">
 	      <fo:retrieve-marker retrieve-class-name="chapter.producedby.blurb"
 	        retrieve-position="first-including-carryover"
