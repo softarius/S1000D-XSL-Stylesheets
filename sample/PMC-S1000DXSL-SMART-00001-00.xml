@@ -8,14 +8,14 @@
   <identAndStatusSection>
     <pmAddress>
       <pmIdent>
-        <pmCode modelIdentCode="S1000DXSL" pmIssuer="SFTR"
+        <pmCode modelIdentCode="S1000DXSL" pmIssuer="SMART"
           pmNumber="00001" pmVolume="00"/>
-        <language languageIsoCode="ru" countryIsoCode="RU"/>
+        <language languageIsoCode="en" countryIsoCode="GB"/>
         <issueInfo issueNumber="001" inWork="00"/>
       </pmIdent>
       <pmAddressItems>
         <issueDate year="2011" month="01" day="28"/>
-        <pmTitle>S1000D XSL РЭ</pmTitle>
+        <pmTitle>S1000D XSL Stylesheets README</pmTitle>
       </pmAddressItems>
     </pmAddress>
     <pmStatus>
@@ -24,11 +24,11 @@
         <symbol infoEntityIdent="publisher-logo" reproductionHeight="12mm"/>
       </logo>
       <responsiblePartnerCompany>
-        <enterpriseName>Софтариус</enterpriseName>
+        <enterpriseName>Smart Avionics Ltd.</enterpriseName>
       </responsiblePartnerCompany>
       <applic>
         <displayText>
-          <simplePara>Все</simplePara>
+          <simplePara>All</simplePara>
         </displayText>
       </applic>
       <qualityAssurance>
@@ -42,9 +42,9 @@
       <dmRef>
         <dmRefIdent>
           <dmCode modelIdentCode="S1000DXSL" systemDiffCode="A"
-          systemCode="00" subSystemCode="0" subSubSystemCode="0"
-          assyCode="00" disassyCode="00" disassyCodeVariant="A"
-          infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
+            systemCode="00" subSystemCode="0" subSubSystemCode="0"
+            assyCode="00" disassyCode="00" disassyCodeVariant="A"
+            infoCode="040" infoCodeVariant="A" itemLocationCode="A"/>
         </dmRefIdent>
       </dmRef>
     </pmEntry>
@@ -52,5 +52,4 @@
 </pm>
 
 <!-- :xml.validate.ignore-dtd=true: -->
-
 

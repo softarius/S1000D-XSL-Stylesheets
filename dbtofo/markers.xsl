@@ -47,7 +47,7 @@
 
       <xsl:when test="./@role='publication.code'">
         <fo:marker marker-class-name="chapter.publication.code">
-          <fo:inline background-color="lime">
+          <fo:inline>
             <xsl:apply-templates/>
           </fo:inline>
         </fo:marker>

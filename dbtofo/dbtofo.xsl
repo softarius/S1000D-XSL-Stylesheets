@@ -17,7 +17,7 @@
 
   <xsl:import href="../../Docbook/docbook-xsl-ns-1.78.1/fo/docbook.xsl"/>
   <xsl:output encoding="UTF-8"/>
-  <xsl:param name="l10n.gentext.default.language" select="'ru'"/>
+  <xsl:param name="l10n.gentext.default.language" select="'en'"/>
   <xsl:param name="paper.type" select="'A4'"/>
   <xsl:output indent="no" method="xml"/>
 
@@ -179,7 +179,7 @@
   <xsl:include href="pagesetup.xsl"/>
   <xsl:include href="sections.xsl"/>
   <xsl:include href="tables.xsl"/>
-  <xsl:include href="titles.xsl"/>
+<!--  <xsl:include href="titles.xsl"/>-->
   <xsl:include href="toc.xsl"/>
   <xsl:include href="xep.xsl"/>
 

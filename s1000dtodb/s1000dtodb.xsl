@@ -21,7 +21,7 @@
 
   <xsl:param name="want.inwork.blurb">yes</xsl:param>
 
-  <xsl:param name="publication.code">12345</xsl:param>
+  <xsl:param name="publication.code">РМАБ.000000.001 РЭ</xsl:param>
 
   <xsl:param name="body.start.indent">20mm</xsl:param>
 

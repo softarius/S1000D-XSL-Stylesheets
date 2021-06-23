@@ -4,6 +4,7 @@
     xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="office text">
     <xsl:output method="xml" indent="yes" version="1.0" encoding="UTF-8"/>
+    <xsl:strip-space elements="*"/>
 
     <xsl:variable name="whitespace" select="'&#09;&#10;&#13; '"/>
 
@@ -141,16 +142,62 @@
     </xsl:template>
 
     <xsl:template match="office:text">
-        <xsl:apply-templates/>
+        <xsl:apply-templates select="text:h"/>
     </xsl:template>
 
-    <xsl:template match="text:p">
-        <xsl:if test="string-length(normalize-space(.)) &gt; 1">
+    <xsl:template name="section">
+        <xsl:param name="ph"/>
+        <xsl:param name="level" select="@text:outline-level"/>
+        <xsl:param name="cn" select="."/>
+        <xsl:param name="lps"
+            select="preceding-sibling::text:h[@text:outline-level = $level - 1][1]"/>
+
+
+        <xsl:if test="$ph = $lps">
+            <xsl:element name="levelledPara">
+                <xsl:attribute name="id">
+                    <xsl:value-of select="generate-id()"/>
+                </xsl:attribute>
+                <title>
+                    <xsl:value-of select="normalize-space(.)"/>
+                </title>
+                <xsl:for-each select="following-sibling::text:p">
+                    <xsl:call-template name="p">
+                        <xsl:with-param name="ph" select="$cn"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+                <xsl:for-each select="following-sibling::text:h[@text:outline-level = $level + 1]">
+                    <xsl:call-template name="section">
+                        <xsl:with-param name="ph" select="$cn"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </xsl:element>
+        </xsl:if>
+    </xsl:template>
+
+    <xsl:template match="text:*[@text:outline-level = 1]">
+        <xsl:call-template name="section">
+            <xsl:with-param name="ph" select="''"/>
+            <xsl:with-param name="lps" select="''"/>
+        </xsl:call-template>
+    </xsl:template>
+
+    <xsl:template name="p">
+        <xsl:param name="ph"/>
+        <!--<xsl:comment>
+    <xsl:value-of select="preceding-sibling::text:h[1]"/>
+    ==
+    <xsl:value-of select="$ph"/>
+</xsl:comment>-->
+        <xsl:if test="preceding-sibling::text:h[1] = $ph">
             <para>
-                <xsl:value-of select="normalize-space(.)"/>
+                <xsl:value-of select="."/>
             </para>
         </xsl:if>
     </xsl:template>
+
+
+
     <xsl:template match="*"/>
 
 
